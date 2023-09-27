@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block estilos %}
+{% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+    {% include "includes/header_text.html" %}
+    {% include "includes/navbar.html" %}    
+
+
+    <section class="page-section about-heading">
+        <div class="container"><img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" 
+            src="{% static 'assets/img/pexels-pixabay-159866.jpg' %}" style="max-width: 80%; margin: 10%; margin-top: -3%";>
+            <div class="about-heading-content">
+                <div class="row">
+                    <div class="col-lg-10 col-xl-9 mx-auto">
+                        <div class="bg-faded rounded p-5">
+                            <h2 class="section-heading mb-4"><span class="section-heading-upper">INVIERTE EN CONOCIMIENTO</span><span class="section-heading-lower">&nbsp;Sobre nosotros</span></h2>
+                            <p>"La inversión en conocimiento y libros es una inversión en ti mismo y en un futuro
+                                más
+                                enriquecedor.Los libros son los compañeros más fieles en el viaje de la vida, proporcionándote
+                                la sabiduría
+                                de generaciones pasadas y la inspiración para enfrentar los desafíos del mañana. En Cervantes
+                                Libros, te
+                                invitamos a invertir en la adquisición de conocimiento y descubrir el inmenso poder de las
+                                palabras
+                                impresas. La inversión en libros es la inversión en un futuro más brillante y enriquecedor. ¡Ven
+                                y haz
+                                crecer tu mundo con nosotros!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="page-section cta">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <div class="text-center cta-inner rounded">
+                        <h2 class="section-heading mb-4"><span class="section-heading-upper">Nuestra visión</span><span
+                                class="section-heading-lower"></span></h2>
+                        <p class="mb-0">"Aspiramos a ser líderes en la promoción de la cultura literaria, conectando a
+                            las personas
+                            con historias significativas y contribuyendo al desarrollo intelectual de nuestra
+                            comunidad."</p>
+                    </div>
+                </div>
+                <div class="col-xl-9 mx-auto mt-5">
+                    <div class="text-center cta-inner rounded">
+                        <h2 class="section-heading mb-4"><span class="section-heading-upper">Nuestra misión</span><span
+                                class="section-heading-lower"></span></h2>
+                        <p class="mb-0">"Nos comprometemos a ser un recurso cultural y educativo valioso para la
+                            comunidad,
+                            promoviendo la diversidad literaria y el aprendizaje continuo."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    {% include "includes/footer.html" %}
+
+
+{% endblock %}

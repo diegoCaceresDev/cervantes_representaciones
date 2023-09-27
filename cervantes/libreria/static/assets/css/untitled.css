@@ -1,0 +1,17 @@
+.section-heading .section-heading-lower {
+  display: block;
+  font-size: 2rem;
+  font-weight: 100;
+}
+
+.section-heading .section-heading-upper {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+
+body {
+  background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65));
+  background-image: url('../img/books-1204029_1920.jpg');
+}

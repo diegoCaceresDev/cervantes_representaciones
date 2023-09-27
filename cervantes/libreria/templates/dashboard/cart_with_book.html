@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block estilos %}
+{% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+    {% include "includes/header_text.html" %}
+    {% include "includes/navbar.html" %}    
+
+
+    
+    {% for book in book%}
+
+    <section class="page-section cta">
+        <div class="container">
+            <h1>¿Desea adquirir el siguiente libro?</h1>
+                <div class="mt-2 cart">
+                    <div class="ref-media ">
+                        <div class="ref-preview"><img class="ref-image active mt-2" src="{{book.img.url}}" data-reflow-preview-type="image" /></div>
+                    </div>
+                    <div>
+                        <h2 class="mt-3">{{book.title}}</h2>
+                        <div ><span></span></div><strong >Precio: <s>{{high_price}} Gs</s> || {{book.price}} Gs</strong><span>
+                            <div class="mt-3">
+                                <a class="btn btn-success" id="abrirModal" href="/form/{{book.id}}">Adquirir</a>
+                                <a class="btn btn-danger" href="/books">Cancelar</a>
+                            </div>
+                        </span>
+                        <div class="mt-3"></div>
+                    </div>
+                </div>
+        </div>
+
+    </section>
+
+
+    
+    {% endfor %}
+    {% include "includes/footer.html" %}
+
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}
+
+

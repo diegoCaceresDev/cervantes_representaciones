@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block estilos %}
+{% endblock %}
+
+{% block contenido %}
+{% load static %}
+    {% include "includes/header_text.html" %}
+    {% include "includes/navbar.html" %}
+
+    <section class="page-section clearfix">
+        <div class="container">
+            <div class="intro"><img class="img-fluid intro-img mb-3 mb-lg-0 rounded"
+                    src="{% static 'assets/img/books-1204029_1920.jpg' %}">
+                <div class="text-center intro-text p-5 rounded bg-faded">
+                    <h2 class="section-heading mb-4"><span class="section-heading-upper">Cervantes Representaciones</span><span
+                            class="section-heading-lower mt-2">invierte en conocimiento</span></h2>
+                    <p class="mb-1">"La inversión en conocimiento y libros es una inversión en ti mismo y en un futuro
+                        más
+                        enriquecedor.Los libros son los compañeros más fieles en el viaje de la vida, proporcionándote
+                        la sabiduría
+                        de generaciones pasadas y la inspiración para enfrentar los desafíos del mañana. En Cervantes
+                        Libros, te
+                        invitamos a invertir en la adquisición de conocimiento y descubrir el inmenso poder de las
+                        palabras
+                        impresas. La inversión en libros es la inversión en un futuro más brillante y enriquecedor. ¡Ven
+                        y haz
+                        crecer tu mundo con nosotros!"<br><br></p>
+                    <div class="mx-auto intro-button"><a class="btn btn-primary d-inline-block mx-auto btn-xl"
+                            role="button" href="/about_us">Conoce mas acerca nuestro.</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% include "includes/footer.html" %}
+
+{% endblock %}

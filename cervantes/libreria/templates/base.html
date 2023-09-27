@@ -1,0 +1,36 @@
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Cervantes - Inicio</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&amp;display=swap">
+    {% load static %}	
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/untitled-1.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/untitled.css' %}">    
+
+
+    {% block estilos %}
+    {% endblock %}
+</head>
+
+<body style="background: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url({% static 'assets/img/books-2596809.jpg' %})">
+    
+    {% block menu %}
+    {% endblock %}
+
+    {% block contenido %}
+    {% endblock %}
+
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+    {% include "includes/toast.html" %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

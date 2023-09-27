@@ -1,0 +1,57 @@
+<!-- Modal para mostrar detalles del libro -->
+<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Detalles del Libro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 id="modalBookTitle"></h3>
+                <h5 id="modalBookAuthor"></h5>
+                <h5 id="modalBookPrice"></h5>
+                <p id="modalBookDescription"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $('.btn-detail').click(function () {
+            var bookId = $(this).data('id');
+            console.log(bookId)
+            obtenerDetallesDelLibro(bookId);
+        });
+
+        function obtenerDetallesDelLibro(bookId) {
+            $.ajax({
+                url: `/book_detail/${bookId}/`, // La URL debe coincidir con la definida en urls.py
+                type: 'GET',
+                success: function (data) {
+                    $('#modalBookTitle').text(data.title);
+                    $('#modalBookAuthor').text('Autor: ' + data.author);
+                    $('#modalBookPrice').text('Price: ' + data.price + ' Gs');
+                    $('#modalBookDescription').text(data.description);
+                    $('#modalBookCategory').text("Categoria: " + data.category);
+                    // Agrega más campos aquí según sea necesario
+                },
+                error: function () {
+                    console.log('Error al obtener detalles del libro');
+                    // Puedes manejar errores aquí
+                }
+            });
+        }
+    });
+</script>

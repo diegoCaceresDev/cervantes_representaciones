@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('libreria.urls')),
+    path('', include('apps.libreria.urls')),
 ]
 
 admin.site.site_title = "Administrados"

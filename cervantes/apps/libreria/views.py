@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from libreria.models import Book, Category
+from .models import Book, Category
 from django.http import JsonResponse
 from django.contrib import messages
 from .forms import book_form

@@ -6,12 +6,15 @@
     <title>Cervantes - Inicio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&amp;display=swap">
-    {% load static %}	
+    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/styles.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/untitled-1.css' %}">    
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/untitled.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/untitled.css' %}">
 
+    {% block mboostrap %}
+
+    {% endblock %}
 
     {% block estilos %}
     {% endblock %}
@@ -30,6 +33,8 @@
     <script src="assets/js/script.min.js"></script>
     {% include "includes/toast.html" %}
     {% block scripts %}
+    {% endblock %}
+    {% block mbscript %}
     {% endblock %}
 </body>
 

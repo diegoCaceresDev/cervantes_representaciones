@@ -25,7 +25,7 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="first_name">Nombre:</label>
-                                <input id="first_name" class="form-control" type="text" name="first_name" placeholder="Ej: Juan" />
+                                <input id="first_name" class="form-control" value="{{ user.username }}" type="text" name="first_name" placeholder="Ej: Juan" />
                             </div>
                             <div class="mb-3">
                                 <label for="last_name">Apellido:</label>

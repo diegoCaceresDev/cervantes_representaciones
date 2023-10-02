@@ -1,10 +1,12 @@
-from django.urls import path    
+from django.urls import path
 from django.conf import settings
-from django.conf.urls.static import static 
+from django.conf.urls.static import static
 from apps.libreria import views
 
+app_name = "bookstore"
+
 urlpatterns = [
-    path('', views.index),	
+    path('', views.index, name='index'),
     path('about_us', views.about_us),
     path('books', views.books),
     path('cart', views.cart),

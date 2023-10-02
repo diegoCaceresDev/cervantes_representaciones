@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Apps propias
-    'apps.libreria'
+    'apps.libreria',
+    'apps.users'
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #para subir imagenes
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Login_required redirect
+LOGIN_URL = '/user/login/'
 
 
 #Configuracion para enviar mails

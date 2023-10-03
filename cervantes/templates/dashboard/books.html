@@ -4,60 +4,93 @@
 {% endblock %}
 
 {% block contenido %}
-{% load static %}
+    {% load static %}
 
-{% include "includes/header_text.html" %}
-{% include "includes/navbar.html" %}
+    {% include "includes/header_text.html" %}
+    {% include "includes/navbar.html" %}
 
-<section class="page-section">
-    <div class="container">
-
-        {% for category in categories%}
-
-        <div>
-            <h1 class="fw-bold white mt-3">{{category.name}}</h1>
-            <a href="/books_speciality/{{category.id}}" class="btn btn-primary">Ver mas libros</a>
-        </div>
-
-        <div class="card-group mb-3">
-            {% for book in category.books.all|slice:":3"%}
-            <div class="col-4">
-                <div class="card h-80 me-3 mb-3 mt-3">
-                    <img class="card-img-top j-100 h-50 d-block img_card" src="{{book.img.url}}" />
-                    <div class="card-body">
-                        <h4 class="card-title">{{book.title}}</h4>
-                        <p class="card-text text-nowrap overflow-hidden text-truncate">
-                            {{book.description}}</p>
-                        <a href="/cart/{{book.id}}/" class="btn btn-success" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
-                                viewBox="0 0 16 16" class="bi bi-cart"
-                                style="width: 20px;height: 20px;font-size: 15px;">
-                                <path
-                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
-                                </path>
-                            </svg>
-                            Ordenar</a>
-                        <button class="btn btn-primary btn-detail" data-toggle="modal" data-target="#bookModal"
-                            data-id="{{ book.id }}">Detalles</button>
-                    </div>
+    <section class="page-section">
+        <div class="container">
+            {% if query %}
+                {% if books %}
+                <h2 class="mb-2" style="color: white">{{ cantidad }} resultados de la búsqueda  "<span >{{ query }}</span>"</h2>
+                    {% for book in books %}
+                       <div class="col-4">
+                            <div class="card h-80 me-3 mb-3 mt-3 pt-4">
+                                <img class="card-img-top j-100 h-50 d-block img_card" src="{{book.img.url}}" />
+                                <div class="card-body">
+                                    <h4 class="card-title">{{book.title}}</h4>
+                                    <p class="card-text text-nowrap overflow-hidden text-truncate">
+                                        {{book.description}}</p>
+                                    <a href="/cart/{{book.id}}/" class="btn btn-success" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-cart"
+                                             style="width: 20px;height: 20px;font-size: 15px;">
+                                            <path
+                                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+                                            </path>
+                                        </svg>
+                                        Ordenar</a>
+                                    <button class="btn btn-primary btn-detail" data-toggle="modal" data-target="#bookModal"
+                                            data-id="{{ book.id }}">Detalles</button>
+                                </div>
 
 
+                            </div>
+                        </div>
+                    {% endfor %}
+            {% else %}
+                <h2 style="color: white">No se encontraron resultados para "{{ query }}".</h2>
+            {% endif %}
+            {% endif %}
+
+            {% for category in categories%}
+
+                <div>
+                    <h1 class="fw-bold white mt-3">{{category.name}}</h1>
+                    <a href="/books_speciality/{{category.id}}" class="btn btn-primary">Ver mas libros</a>
                 </div>
-            </div>
+
+                <div class="card-group mb-3">
+
+                    {% for book in category.books.all|slice:":3"%}
+                        <div class="col-4">
+                            <div class="card h-80 me-3 mb-3 mt-3 pt-4">
+                                <img class="card-img-top j-100 h-50 d-block img_card" src="{{book.img.url}}" />
+                                <div class="card-body">
+                                    <h4 class="card-title">{{book.title}}</h4>
+                                    <p class="card-text text-nowrap overflow-hidden text-truncate">
+                                        {{book.description}}</p>
+                                    <a href="/cart/{{book.id}}/" class="btn btn-success" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-cart"
+                                             style="width: 20px;height: 20px;font-size: 15px;">
+                                            <path
+                                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+                                            </path>
+                                        </svg>
+                                        Ordenar</a>
+                                    <button class="btn btn-primary btn-detail" data-toggle="modal" data-target="#bookModal"
+                                            data-id="{{ book.id }}">Detalles</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
+
+
         </div>
-        {% endfor %}
+
+    </section>
+
+    {% include "includes/footer.html" %}
+    {% include "includes/modal_details.html" %}
 
 
-    </div>
+    {% block scripts %}
 
-</section>
-
-{% include "includes/footer.html" %}
-{% include "includes/modal_details.html" %}
-
-
-{% block scripts %}
-
-{% endblock %}
+    {% endblock %}
 {% endblock %}

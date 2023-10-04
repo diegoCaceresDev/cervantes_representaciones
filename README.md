@@ -4,7 +4,6 @@
 - **Búsqueda de Libros:** Los usuarios tienen a su disposición una interfaz para buscar los libros de sus preferencias.
 - **Detalles del libro:** Una vez que los usuarios hayan filtrado un libro de su interés, pueden ver información detallada, incluyendo imágenes, descripción y precio.
 - **Agregar al carrito** Los usarios podran agreagar al carrito los libros de sus intereses.
-- 
 ## Instalación de la Aplicación Web 
 
 ### Pasos para configurar el entorno virtual, instalar Django y las dependencias desde el archivo `requirements.txt`:

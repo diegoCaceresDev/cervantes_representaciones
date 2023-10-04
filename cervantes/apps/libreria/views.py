@@ -115,3 +115,22 @@ def process_book(request):
         else:
             messages.error(request, 'Algo ha salido mal')
             return render(request, 'dashboard/index.html')
+
+
+def search_book(request):
+    if request.method == "POST":
+        # Obtenemos la entrada del usuario
+        search_query = request.POST['search_query']
+        # Fitramos la entrada para obtener las coincidencias
+        books = Book.objects.filter(title__icontains=search_query)
+        # Contamos la cantidad de resultados obtenidos
+        count_result = books.count()
+        print(count_result)
+        print(books)
+        context = {
+            'query': search_query,
+            'books': books,
+            'cantidad': count_result
+        }
+        return render(request, 'dashboard/books.html', context)
+

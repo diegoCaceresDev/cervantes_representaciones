@@ -13,9 +13,9 @@
         <div class="container">
             {% if query %}
                 {% if books %}
-                <h2 class="mb-2" style="color: white">{{ cantidad }} resultados de la búsqueda  "<span >{{ query }}</span>"</h2>
+                    <h2 class="mb-2" style="color: white">{{ cantidad }} resultados de la búsqueda  "<span >{{ query }}</span>"</h2>
                     {% for book in books %}
-                       <div class="col-4">
+                        <div class="col-4">
                             <div class="card h-80 me-3 mb-3 mt-3 pt-4">
                                 <img class="card-img-top j-100 h-50 d-block img_card" src="{{book.img.url}}" />
                                 <div class="card-body">
@@ -39,9 +39,9 @@
                             </div>
                         </div>
                     {% endfor %}
-            {% else %}
-                <h2 style="color: white">No se encontraron resultados para "{{ query }}".</h2>
-            {% endif %}
+                {% else %}
+                    <h2 style="color: white">No se encontraron resultados para "{{ query }}".</h2>
+                {% endif %}
             {% endif %}
 
             {% for category in categories%}

@@ -5,6 +5,7 @@ from django.contrib import messages
 from .forms import book_form
 from .models import Order
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 # Renderiza el `inicio`
@@ -28,8 +29,13 @@ def books(request):
 
 # Renderiza  `libros` filtrado por especialidad
 def books_speciality(request, category_id):
+    categories = Category.objects.filter(id=category_id)
+    paginator = Paginator(categories, 3)
+    page = request.GET.get('page')
+    books_page = paginator.get_page(page)
     context = {
-        "categories": Category.objects.filter(id=category_id)
+        "categories": categories,
+        "books_page": books_page
     }
     return render(request, "dashboard/books_speciality.html", context)
 

@@ -5,6 +5,9 @@ from django.contrib import messages
 from .forms import book_form
 from .models import Order
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
+from django.forms.models import model_to_dict
+
 
 
 # Renderiza el `inicio`
@@ -59,12 +62,28 @@ def book_detail(request, book_id):
 
 # Renderiza el `cart with book`
 def cart_with_book(request, book_id):
-    book_by_id = Book.objects.filter(id=book_id)
+    books = {}
+    
+    # Recupera la variable de sesión 'cart' o crea un diccionario vacío si no existe
+    cart = request.session.get('cart', {})
+
+    # Agrega el libro al carrito utilizando su ID como clave y la cantidad deseada como valor
+    cart[book_id] = cart.get(book_id, 0) + 1
+
+    # Almacena el carrito actualizado en la variable de sesión
+    request.session['cart'] = cart
+    
+    books = []
+    for book in request.session['cart'].keys():
+        
+        books.append(Book.objects.filter(id=book))
+
+    print(f"Esto: {books}")
     context = {
-        "book": book_by_id,
-        "high_price": int(book_by_id[0].price * 1.2)
+        "books": books,
     }
-    print(context)
+    
+    
     return render(request, "dashboard/cart_with_book.html", context)
 
 

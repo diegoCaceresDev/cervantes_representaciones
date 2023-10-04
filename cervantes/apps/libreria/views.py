@@ -33,12 +33,13 @@ def books(request):
 
 # Renderiza  `libros` filtrado por especialidad
 def books_speciality(request, category_id):
-    categories = Category.objects.filter(id=category_id)
-    paginator = Paginator(categories, 3)
+    category = Category.objects.get(id=category_id)
+    book = category.books.all()
+    paginator = Paginator(book, 3)
     page = request.GET.get('page')
     books_page = paginator.get_page(page)
     context = {
-        "categories": categories,
+        "category": category,
         "books_page": books_page
     }
     return render(request, "dashboard/books_speciality.html", context)

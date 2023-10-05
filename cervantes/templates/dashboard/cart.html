@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block estilos %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/form.css' %}">
 {% endblock %}
+
 
 {% block contenido %}
     {% load static %}
@@ -10,6 +13,60 @@
     {% include "includes/navbar.html" %}
 
 
+    {%if request.session.cart%}
+
+    <section class="page-section cta">
+        <div class="container">
+            <div class="text-end mb-4 ">
+            <h1>Carrito de Compras</h1>
+            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col-5"><h5>Libro</h5></th>
+                    <th scope="col-2"><h5>Precio</h5></th>
+                    <th scope="col-2"><h5>Cantidad</h5></th>
+                    <th scope="col-3"><h5>Total</h5></th>
+                </tr>
+            </thead>
+            <tbody>
+
+    {% for object in books%}
+    {%for book in object%}
+
+    <tr>
+        <th scope="row">
+            <div class="ref-preview flex">
+                <img class="ref-image active mt-2 form-img" src="{{book.img.url}}" data-reflow-preview-type="image" />
+                <div class="ms-2">
+                    <p class="mt-3">Libro: {{book.title}}</p>
+                    <p class="mt-3">Categoria: {{book.category}}</p>
+                </div>
+            </div>
+        </th>
+        <td><h5 class="mt-3">{{book.price}}</h5></td>
+        <td> <input id="price" class="form-control" type="number" name="price" value="1" readonly/></td>
+        <td><h5 class="mt-3">{{book.price}}</h5></td>
+    </tr>
+    
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+    </table>
+
+    <div class="input-group mb-3 ">
+        <span class="input-group-text">Total</span>
+        <span class="input-group-text">Gs</span>
+        <span class="input-group-text">{{total}}</span>
+    </div>
+    
+        <a class="btn btn-success" id="abrirModal" href="/form">Adquirir</a>
+        <a class="btn btn-danger" href="/books">Cancelar</a>
+    </div>
+
+    </section>
+
+    {% else %}
 
     <section class="page-section cta">
         <div class="container">
@@ -44,6 +101,8 @@
             </div>
         </div>
     </section>
+
+    {% endif %}
 
     {% include "includes/footer.html" %}
 

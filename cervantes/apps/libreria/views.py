@@ -45,9 +45,30 @@ def books_speciality(request, category_id):
     return render(request, "dashboard/books_speciality.html", context)
 
 
-# Renderiza el `cart`
+# Renderiza el `cart`, todos los pedidos de libros que hay en la session y calcula el precio total.
 def cart(request):
-    return render(request, "dashboard/cart.html")
+    books = []
+    total = 0
+    cart = request.session.get('cart', {})
+
+    if not cart:
+        request.session['cart'] = {}
+    
+
+    for book in cart.keys():
+        
+        books.append(Book.objects.filter(id=book))
+
+    for object in books:
+        for book in object:
+            total += book.price
+
+    
+    context = {
+        "books": books,
+        "total": total,
+    }
+    return render(request, "dashboard/cart.html", context)
 
 
 # Obtener detalles del libro en Json
@@ -70,7 +91,6 @@ def book_detail(request, book_id):
 
 # Renderiza el `cart with book`
 def cart_with_book(request, book_id):
-    books = {}
     
     # Recupera la variable de sesión 'cart' o crea un diccionario vacío si no existe
     cart = request.session.get('cart', {})
@@ -81,26 +101,35 @@ def cart_with_book(request, book_id):
     # Almacena el carrito actualizado en la variable de sesión
     request.session['cart'] = cart
     
-    books = []
-    for book in request.session['cart'].keys():
-        
-        books.append(Book.objects.filter(id=book))
+    books = Book.objects.filter(id = book_id)
 
     print(f"Esto: {books}")
     context = {
         "books": books,
     }
     
-    
     return render(request, "dashboard/cart_with_book.html", context)
 
 
 # Renderiza el `form`
 @login_required
-def form(request, book_id):
-    book_by_id = Book.objects.filter(id=book_id)
+def form(request):
+    books = []
+    total = 0
+    cart = request.session.get('cart', {})
+
+    for book in cart.keys():
+        
+        books.append(Book.objects.filter(id=book))
+
+    for object in books:
+        for book in object:
+            total += book.price
+
+    
     context = {
-        "book": book_by_id,
+        "books": books,
+        "total": total,
     }
     return render(request, "dashboard/form.html", context)
 

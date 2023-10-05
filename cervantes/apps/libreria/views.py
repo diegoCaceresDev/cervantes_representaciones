@@ -5,6 +5,8 @@ from django.contrib import messages
 from .forms import book_form
 from .models import Order
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 from django.core import serializers
 from django.forms.models import model_to_dict
 
@@ -31,8 +33,14 @@ def books(request):
 
 # Renderiza  `libros` filtrado por especialidad
 def books_speciality(request, category_id):
+    category = Category.objects.get(id=category_id)
+    book = category.books.all()
+    paginator = Paginator(book, 3)
+    page = request.GET.get('page')
+    books_page = paginator.get_page(page)
     context = {
-        "categories": Category.objects.filter(id=category_id)
+        "category": category,
+        "books_page": books_page
     }
     return render(request, "dashboard/books_speciality.html", context)
 

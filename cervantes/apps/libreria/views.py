@@ -107,7 +107,8 @@ def cart_with_book(request, book_id):
     context = {
         "books": books,
     }
-    
+    messages.success(request, 'Se ha añadido el libro a su carrito de compra')
+
     return render(request, "dashboard/cart_with_book.html", context)
 
 

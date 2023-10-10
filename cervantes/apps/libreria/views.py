@@ -7,10 +7,6 @@ from .models import Order
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
-from django.core import serializers
-from django.forms.models import model_to_dict
-
-
 
 # Renderiza el `inicio`
 def index(request):
@@ -47,7 +43,7 @@ def books_speciality(request, category_id):
 
 # Renderiza el `cart`
 def cart(request):
-    return render(request, "dashboard/cart.html")
+    return render(request, "dashboard/cart_with_book.html")
 
 
 # Obtener detalles del libro en Json
@@ -70,8 +66,7 @@ def book_detail(request, book_id):
 
 # Renderiza el `cart with book`
 def cart_with_book(request, book_id):
-    books = {}
-    
+
     # Recupera la variable de sesión 'cart' o crea un diccionario vacío si no existe
     cart = request.session.get('cart', {})
 
@@ -80,19 +75,18 @@ def cart_with_book(request, book_id):
 
     # Almacena el carrito actualizado en la variable de sesión
     request.session['cart'] = cart
-    
+
     books = []
     for book in request.session['cart'].keys():
-        
         books.append(Book.objects.filter(id=book))
 
     print(f"Esto: {books}")
     context = {
         "books": books,
     }
-    
-    
+
     return render(request, "dashboard/cart_with_book.html", context)
+
 
 
 # Renderiza el `form`
@@ -141,4 +135,3 @@ def search_book(request):
             'cantidad': count_result
         }
         return render(request, 'dashboard/books.html', context)
-

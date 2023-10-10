@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block estilos %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/form.css' %}">
 {% endblock %}
+
 
 {% block contenido %}
     {% load static %}
@@ -10,6 +13,86 @@
     {% include "includes/navbar.html" %}
 
 
+    {%if request.session.cart%}
+
+    <section class="page-section cta">
+        <div class="container">
+            <div class="text-end mb-4 ">
+            <h1>Carrito de Compras</h1>
+            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col-5"><h5>Libro</h5></th>
+                    <th scope="col-2"><h5>Precio</h5></th>
+                    <th scope="col-2"><h5>Cantidad</h5></th>
+                    <th scope="col-3"><h5>Subtotal</h5></th>
+                </tr>
+            </thead>
+            <tbody>
+
+    {% for object in books%}
+    {%for book in object%}
+
+    <tr>
+        <th scope="row">
+            <div class="ref-preview flex">
+                <img class="ref-image active mt-2 form-img" src="{{book.img.url}}" data-reflow-preview-type="image" />
+                <div class="ms-2">
+                    <p class="mt-3">Libro: {{book.title}}</p>
+                    <p class="mt-3">Categoria: {{book.category}}</p>
+                </div>
+            </div>
+        </th>
+        {% for book_quantity in quantity %}
+        {% if book.id|stringformat:"d" == book_quantity.0 %}
+        <td><h5 class="mt-3">{{book.price}}</h5></td>
+        <td> 
+            <h5 class="mt-3 ms-3">
+
+            {{book_quantity.1}}
+
+            </h5>
+        </td>
+        {% endif %}
+        {% endfor %} 
+
+        {% for book_subtotal in subtotal %}
+        {% if book.id == book_subtotal.0 %}
+        <td><h5 class="mt-3"> {{book_subtotal.1}}</h5></td>
+
+        {% endif %}
+        {% endfor %} 
+
+    </tr>
+    
+    {% endfor %}
+    {% endfor %}
+
+    <tr>
+        <th></th>
+        <td><h3>Total: </h3></td>
+        <td>
+            <span class="input-group-text">{{total}}</span>
+        </td>
+        <td>
+            <span class="input-group-text">Gs</span>
+        </td>
+
+    </tr>
+    </tbody>
+    </table>
+
+    <div class="input-group mb-3 ">
+    </div>
+    
+        <a class="btn btn-success" id="abrirModal" href="/form">Adquirir</a>
+        <a class="btn btn-danger" href="/books">Cancelar</a>
+    </div>
+
+    </section>
+
+    {% else %}
 
     <section class="page-section cta">
         <div class="container">
@@ -25,12 +108,13 @@
                                     <h2 class="ref-name">No has seleccionado ningun libro</h2>
                                     <div class="ref-categories"><span class="ref-category">Vea todos nuestros libros disponibles</span></div>
                                     <div class="reflow-add-to-cart ref-product-controls">
-                                            <span><a class="btn btn-primary" href="/books"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                                                width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-book"
-                                                                                                style="width: 20px;height: 20px;">
-                                            <path
-                                                    d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z">
-                                            </path>
+                                            <span><a class="btn btn-primary" href="/books"><svg xmlns="http://www.w3.org/2000/svg"width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-book">
+                                                <path
+                                                    d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.
+                                                    141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.
+                                                    015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 
+                                                    .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z">
+                                                </path>
                                         </svg>&nbsp;Libros
                                         </a>
 
@@ -44,6 +128,8 @@
             </div>
         </div>
     </section>
+
+    {% endif %}
 
     {% include "includes/footer.html" %}
 

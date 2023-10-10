@@ -41,9 +41,52 @@ def books_speciality(request, category_id):
     return render(request, "dashboard/books_speciality.html", context)
 
 
-# Renderiza el `cart`
+# Renderiza el `cart`, todos los pedidos de libros que hay en la session y calcula el precio total.
 def cart(request):
-    return render(request, "dashboard/cart_with_book.html")
+    """
+    Devuelve el carrito con los books solicitados por el usuario en sesion, la cantidad y 
+    el precio sub-total de cada pedido y precio total de todos los pedidos.
+    """
+    books = []
+    quantity = []
+    subtotal = []
+    total = 0
+    cart = request.session.get('cart', {})
+
+    if not cart:
+        request.session['cart'] = {}
+    #Guarda todos los books solicitados por el usuario en sesion en la variable books
+    for book in cart.keys():
+        books.append(Book.objects.filter(id=book))
+        
+    #Guarda todos cantidad de cada book solicitados por el usuario en sesion en la variable quantity
+    for book in cart.items():
+        quantity.append(book)
+        
+    print(f"esto es la cantidad: {quantity}")
+
+    #Guarda el precio subtotal de cada pedido en la variable subtotal
+    for book_quantity in quantity:
+        for object in books:
+            for book in object:
+                if book.id == int(book_quantity[0]):
+                    subtotal_book = book.price * book_quantity[1]
+                    subtotal.append((book.id, subtotal_book))
+    print(f"esto es el subtotal: {subtotal}")
+
+    #Guarda el precio total de todos los pedidos en la variable total
+    for precio in subtotal:
+        total += precio[1]
+    print(f"esto es el total: {total}")
+    
+    
+    context = {
+        "books": books,
+        "total": total,
+        "subtotal": subtotal,
+        "quantity": quantity,
+    }
+    return render(request, "dashboard/cart.html", context)
 
 
 # Obtener detalles del libro en Json
@@ -66,12 +109,12 @@ def book_detail(request, book_id):
 
 # Renderiza el `cart with book`
 def cart_with_book(request, book_id):
-
+    
     # Recupera la variable de sesión 'cart' o crea un diccionario vacío si no existe
     cart = request.session.get('cart', {})
 
     # Agrega el libro al carrito utilizando su ID como clave y la cantidad deseada como valor
-    cart[book_id] = cart.get(book_id, 0) + 1
+    cart[str(book_id)] = cart.get(str(book_id), 0) + 1
 
     # Almacena el carrito actualizado en la variable de sesión
     request.session['cart'] = cart
@@ -84,6 +127,7 @@ def cart_with_book(request, book_id):
     context = {
         "books": books,
     }
+    messages.success(request, 'Se ha añadido el libro a su carrito de compra')
 
     return render(request, "dashboard/cart_with_book.html", context)
 
@@ -91,10 +135,23 @@ def cart_with_book(request, book_id):
 
 # Renderiza el `form`
 @login_required
-def form(request, book_id):
-    book_by_id = Book.objects.filter(id=book_id)
+def form(request):
+    books = []
+    total = 0
+    cart = request.session.get('cart', {})
+
+    for book in cart.keys():
+        
+        books.append(Book.objects.filter(id=book))
+
+    for object in books:
+        for book in object:
+            total += book.price
+
+    
     context = {
-        "book": book_by_id,
+        "books": books,
+        "total": total,
     }
     return render(request, "dashboard/form.html", context)
 

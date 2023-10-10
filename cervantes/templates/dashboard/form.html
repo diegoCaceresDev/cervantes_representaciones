@@ -10,7 +10,8 @@
 {% include "includes/navbar.html" %}
 
 
-{% for book in book%}
+{% for object in books%}
+{%for book in object%}
 <section class="position-relative py-4 py-xl-5">
     <div class="container position-relative">
         <div class="row d-flex justify-content-center">
@@ -36,8 +37,8 @@
                                 <input id="phone" class="form-control" type="number" name="phone" placeholder="Ej: 0985 856173 " />
                             <div class="mb-3"><input id="title" class="form-control" type="hidden" name="title" value="{{book.title}}"/></div>
                             <div class="mb-3">
-                                <label for="price">Precio</label>
-                                <input id="price" class="form-control" type="number" name="price" value="{{book.price}}" readonly/>
+                                <label for="price">Precio total</label>
+                                <input id="price" class="form-control" type="number" name="price" value="{{total}}" readonly/>
                             </div>
                             <div><button class="btn btn-primary d-block w-100" type="submit" >Enviar</button></div>
                         </div>
@@ -51,9 +52,7 @@
     </div>
 </section>
 
-
-
-
+{% endfor %}
 {% endfor %}
 
 {% include "includes/footer.html" %}

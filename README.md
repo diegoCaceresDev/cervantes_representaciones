@@ -1,7 +1,7 @@
 # Proyecto grupal de Coding Dojo "Cervantes representaciones"
 ## Versiones:
 ### Version 1.0:
--Creacion de modelos: Book, Order, Category.
+- Creacion de modelos: Book, Order, Category.
 - Creacion de templates para Inicio, Sobre Nosotros, Libros, Carrito, etc.
 - Despliegue de libros por categorias en el template books.
 - Implementacion de boton para ver todos los libros dentro de una categoria.

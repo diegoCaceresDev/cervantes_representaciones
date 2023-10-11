@@ -1,10 +1,9 @@
 from django.contrib import admin
-from .models import Category, Book, Order
+from .models import Category, Book, Order, OrderDetail
 from django.utils.html import format_html
 
 # Register your models here.
 admin.site.register(Category)
-admin.site.register(Order)
 
 
 @admin.register(Book)
@@ -23,3 +22,13 @@ class BooAdmin(admin.ModelAdmin):
     display_image.short_description = 'Image'
 
 
+class OrderDetailInline(admin.TabularInline):  # Puedes cambiar a StackedInline si prefieres una vista apilada
+    model = OrderDetail
+    extra = 1  # Puedes ajustar esto para especificar cuántos detalles de órdenes puedes agregar
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('user', 'total', 'created_at', 'updated_at')
+    list_filter = ('user',)
+    inlines = [OrderDetailInline]  # Agrega el Inline de detalles de órdenes a la vista de órdenes

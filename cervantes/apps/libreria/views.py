@@ -3,7 +3,7 @@ from .models import Book, Category
 from django.http import JsonResponse
 from django.contrib import messages
 from .forms import book_form
-from .models import Order
+from .models import Order, OrderDetail
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
@@ -55,17 +55,17 @@ def cart(request):
 
     if not cart:
         request.session['cart'] = {}
-    #Guarda todos los books solicitados por el usuario en sesion en la variable books
+    # Guarda todos los books solicitados por el usuario en sesion en la variable books
     for book in cart.keys():
         books.append(Book.objects.filter(id=book))
-        
-    #Guarda todos cantidad de cada book solicitados por el usuario en sesion en la variable quantity
+
+    # Guarda todos cantidad de cada book solicitados por el usuario en sesion en la variable quantity
     for book in cart.items():
         quantity.append(book)
-        
+
     print(f"esto es la cantidad: {quantity}")
 
-    #Guarda el precio subtotal de cada pedido en la variable subtotal
+    # Guarda el precio subtotal de cada pedido en la variable subtotal
     for book_quantity in quantity:
         for object in books:
             for book in object:
@@ -74,12 +74,11 @@ def cart(request):
                     subtotal.append((book.id, subtotal_book))
     print(f"esto es el subtotal: {subtotal}")
 
-    #Guarda el precio total de todos los pedidos en la variable total
+    # Guarda el precio total de todos los pedidos en la variable total
     for precio in subtotal:
         total += precio[1]
     print(f"esto es el total: {total}")
-    
-    
+
     context = {
         "books": books,
         "total": total,
@@ -109,7 +108,6 @@ def book_detail(request, book_id):
 
 # Renderiza el `cart with book`
 def cart_with_book(request, book_id):
-    
     # Recupera la variable de sesión 'cart' o crea un diccionario vacío si no existe
     cart = request.session.get('cart', {})
 
@@ -132,6 +130,38 @@ def cart_with_book(request, book_id):
     return render(request, "dashboard/cart_with_book.html", context)
 
 
+def create_order(request):
+    # Obtener el carrito de la sesión
+    cart = request.session.get('cart', {})
+
+    # Crea una instancia de Order y asocia al usuario
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
+    order = Order(user=user, total=0)
+
+    # Guarda el pedido
+    order.save()
+
+    # Creando detalles de la orden
+    for book_id, stock in cart.items():
+        book = Book.objects.get(id=book_id)
+        subtotal = book.price * stock  # Calcula el subtotal para este libro
+
+        order_detail = OrderDetail(order=order, book=book, quantity=stock, subtotal=subtotal)
+        order_detail.save()
+
+    # Calculando el monmto total del orden
+    order.calculate_total()
+    order.save()
+
+    # Limpia el carrito en la sesión
+    request.session['cart'] = {}
+
+    messages.success(request, 'La orden se ha creado con éxito')
+    return render(request, 'dashboard/index.html')
+
 
 # Renderiza el `form`
 @login_required
@@ -141,14 +171,12 @@ def form(request):
     cart = request.session.get('cart', {})
 
     for book in cart.keys():
-        
         books.append(Book.objects.filter(id=book))
 
     for object in books:
         for book in object:
             total += book.price
 
-    
     context = {
         "books": books,
         "total": total,

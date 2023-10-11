@@ -15,7 +15,8 @@ urlpatterns = [
     path('books_speciality/<int:category_id>/', views.books_speciality, name='books_speciality'),
     path('form', views.form, name='form'),
     path('process_book', views.process_book, name='process_book'),
-    path('search/', views.search_book, name='search')
+    path('search/', views.search_book, name='search'),
+    path('create_order', views.create_order, name='create_order')
 ]
 
 if settings.DEBUG:

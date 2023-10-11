@@ -38,6 +38,7 @@ class Book(models.Model):
         verbose_name = "Libro"
         verbose_name_plural = "Libros"
 
+
 # Necesito una clase order y una clase order detail para libto
 class Order(models.Model):
     user = models.ForeignKey(User, related_name=("orders"), null=True, on_delete=models.CASCADE)
@@ -45,6 +46,11 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def calculate_total(self):
+        order_details = self.order_details.all()
+        total = sum(detail.subtotal for detail in order_details)
+        self.total = total
+        self.save()
 
     def __str__(self):
         return f"{self.user} - {self.total}"
@@ -52,6 +58,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Orden"
         verbose_name_plural = "Ordenes"
+
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, related_name=("order_details"), null=True, on_delete=models.CASCADE)

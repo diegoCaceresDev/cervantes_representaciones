@@ -1,6 +1,6 @@
 # Proyecto grupal de Coding Dojo "Cervantes representaciones"
 ## Versiones:
-### Version 1.0:
+### Version 1.0 (Proyecto Individual: Diego Caceres):
 - Creacion de modelos: Book, Order, Category.
 - Creacion de templates para Inicio, Sobre Nosotros, Libros, Carrito, etc.
 - Despliegue de libros por categorias en el template books.
@@ -8,6 +8,8 @@
 - Implementacion de boton para ver detalles del libro en un modal, utilizando Json para los datos.
 - Implementacion de boton para ordenar el pedido que renderiza un formulario.
 - Formulario con datos del cliente y del libro seleccionado, el pedido ser guarda en el modelo Order.
+
+### Version 1.0 (Proyecto Grupal: Diego Caceres y Fredy Arce):
 
 ## Descripción del proyecto 
 - **Registro e Inicio de Sesión de Usuarios:** Los usuarios pueden registrarse en el sistema e iniciar sesión en la aplicación.

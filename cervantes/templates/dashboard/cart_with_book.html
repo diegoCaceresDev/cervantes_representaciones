@@ -15,8 +15,9 @@
     <section class="page-section cta">
             <div class="container">
                 <tbody>
-                    {%for book in books%}
-                    <h1><b>Haz añadido {{book.title}} a tu carrito de compras</b></h1>
+                    {% for object in books%}
+                    {%for book in object%}
+                            <h1><b>Haz añadido {{book.title}} a tu carrito de compras</b></h1>
 
                             <div class="ref-preview flex">
                                 <img class="ref-image active mt-2 form-img" src="{{book.img.url}}" data-reflow-preview-type="image" />
@@ -28,6 +29,7 @@
                                 </div>
                             </div>
 
+                    {% endfor %}
                     {% endfor %}
 
             <div class="mt-3">

@@ -9,7 +9,16 @@
 - Implementacion de boton para ordenar el pedido que renderiza un formulario.
 - Formulario con datos del cliente y del libro seleccionado, el pedido ser guarda en el modelo Order.
 
-### Version 1.0 (Proyecto Grupal: Diego Caceres y Fredy Arce):
+### Version 2.0 (Proyecto Grupal: Diego Caceres y Fredy Arce):
+- Reestructuracion de carpetas segun el Modelo-Vista-Controlador.
+- Implementacion de Login y Register con autenticacion.
+- Implementacion de buscador de libros por titulo.
+- Implementacion de paginador para los libros.
+- Optimizacion del carrito de compras:
+  - Implementacion de guardado de libros en sesion.
+  - Implementacion de subtotal y total.
+- Creacion del modelo Order Details.
+- Personalizacion de admin de Django para poder ver libros y ordenes.
 
 ## Descripción del proyecto 
 - **Registro e Inicio de Sesión de Usuarios:** Los usuarios pueden registrarse en el sistema e iniciar sesión en la aplicación.

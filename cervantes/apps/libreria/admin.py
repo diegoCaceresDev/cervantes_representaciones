@@ -8,7 +8,7 @@ admin.site.register(Category)
 
 @admin.register(Book)
 class BooAdmin(admin.ModelAdmin):
-    list_display = ('isbn', 'category', 'price', 'stock', 'display_image')
+    list_display = ('isbn', 'category', 'editorial', 'price', 'stock', 'display_image')
     list_filter = ('category', 'price')
     search_fields = ('title', 'category__name')
     list_per_page = 6
@@ -19,7 +19,7 @@ class BooAdmin(admin.ModelAdmin):
         else:
             return 'No Image Found'
 
-    display_image.short_description = 'Image'
+    display_image.short_description = 'Portada'
 
 
 class OrderDetailInline(admin.TabularInline):  # Puedes cambiar a StackedInline si prefieres una vista apilada

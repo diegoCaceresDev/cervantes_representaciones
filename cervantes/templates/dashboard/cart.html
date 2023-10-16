@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} Carrito {% endblock %}
+
 {% block estilos %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/form.css' %}">
@@ -46,7 +48,8 @@
         </th>
         {% for book_quantity in quantity %}
         {% if book.id|stringformat:"d" == book_quantity.0 %}
-        <td><h5 class="mt-3">{{book.price}}</h5></td>
+            {% load humanize %}
+        <td><h5 class="mt-3">{{book.price|intcomma}}</h5></td>
         <td> 
             <h5 class="mt-3 ms-3">
 
@@ -59,7 +62,7 @@
 
         {% for book_subtotal in subtotal %}
         {% if book.id == book_subtotal.0 %}
-        <td><h5 class="mt-3"> {{book_subtotal.1}}</h5></td>
+        <td><h5 class="mt-3"> {{book_subtotal.1|intcomma}}</h5></td>
 
         {% endif %}
         {% endfor %} 
@@ -73,10 +76,10 @@
         <th></th>
         <td><h3>Total: </h3></td>
         <td>
-            <span class="input-group-text">{{total}}</span>
+            <span class="input-group-text">Gs</span>
         </td>
         <td>
-            <span class="input-group-text">Gs</span>
+            <span class="input-group-text">{{total|intcomma}}</span>
         </td>
 
     </tr>

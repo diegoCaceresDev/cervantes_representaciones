@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField('nombre', max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -23,10 +23,11 @@ class Book(models.Model):
     description = models.TextField(null=True)
     publication_date = models.DateField(null=True)
     author = models.CharField(max_length=100, null=True)
-    price = models.IntegerField(null=True)
-    isbn = models.IntegerField(null=True)
-    stock = models.IntegerField(null=True)
-    img = models.ImageField(upload_to="book/", null=True)
+    editorial = models.CharField(max_length=100, null=True)
+    price = models.IntegerField('Precio', null=True)
+    isbn = models.CharField(max_length=13, unique=True, default='Sin ISBN')
+    stock = models.IntegerField('Cantidad', null=True)
+    img = models.ImageField('Portada', upload_to="book/", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, related_name=("books"), null=True, on_delete=models.CASCADE)

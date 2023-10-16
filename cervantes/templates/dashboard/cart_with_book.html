@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} Carrito {% endblock %}
+
 {% block estilos %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/form.css' %}">
@@ -25,7 +27,8 @@
                                     <h5 class="mt-3"><b>Libro:</b> {{book.title}}</h5>
                                     <h5 class="mt-3"><b>Autor:</b> {{book.author}}</h5>
                                     <h5 class="mt-3"><b>Categoria:</b> {{book.category}}</h5>
-                                    <h5 class="mt-3"><b>Precio:</b> {{book.price}}</h5>
+                                    {% load humanize %}
+                                    <h5 class="mt-3"><b>Precio:</b> ₲ {{book.price|intcomma}}</h5>
                                 </div>
                             </div>
 

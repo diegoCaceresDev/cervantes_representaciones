@@ -98,7 +98,9 @@ def book_detail(request, book_id):
             "description": book.description,
             "publication_date": str(book.publication_date),
             "author": book.author,
-            "price": str(book.price),
+            "editorial": str(book.editorial),
+            "isbn": str(book.isbn),
+            "price": book.price,
             "category": str(book.category),
         }
         return JsonResponse(detalles)

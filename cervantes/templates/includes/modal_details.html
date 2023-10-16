@@ -11,6 +11,7 @@
             <div class="modal-body">
                 <h3 id="modalBookTitle"></h3>
                 <h5 id="modalBookAuthor"></h5>
+                <h5 id="modalBookEditorial"></h5>
                 <h5 id="modalBookPrice"></h5>
                 <p id="modalBookDescription"></p>
             </div>
@@ -42,7 +43,8 @@
                 success: function (data) {
                     $('#modalBookTitle').text(data.title);
                     $('#modalBookAuthor').text('Autor: ' + data.author);
-                    $('#modalBookPrice').text('Price: ' + data.price + ' Gs');
+                    $('#modalBookEditorial').text('Editorial: ' + data.editorial);
+                    $('#modalBookPrice').text('Precio: ' + formatPrice(data.price)); //Como puedo dar formato a este precio
                     $('#modalBookDescription').text(data.description);
                     $('#modalBookCategory').text("Categoria: " + data.category);
                     // Agrega más campos aquí según sea necesario
@@ -52,6 +54,10 @@
                     // Puedes manejar errores aquí
                 }
             });
+        }
+        // Función para dar formato al precio
+        function formatPrice(price) {
+            return price.toLocaleString('es-PY', { style: 'currency', currency: 'PYG' });
         }
     });
 </script>
